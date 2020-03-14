@@ -2,10 +2,12 @@
 
 The presentation deals with the paper *Dragonblood: A Security Analysis of WPA3’s SAE Handshake* by Mathy Vanhoef and Eyal Ronen:
 
-  ```@inproceedings{vanhoef-sp2020-dragonblood,
+  ```
+  @inproceedings{vanhoef-sp2020-dragonblood,
   author = {Mathy Vanhoef and Eyal Ronen},
   title = {Dragonblood: Analyzing the {Dragonfly} Handshake of {WPA3} and {EAP-pwd}},
   booktitle = {IEEE Symposium on Security \& Privacy (SP)},
   year = {2020},
   publisher = {IEEE}
-  }``
+  }
+  ```
