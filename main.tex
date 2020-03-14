@@ -59,9 +59,6 @@ citestyle=authortitle-tcomp
 \date{23.03.2020}
 % Optionnel. La date, généralement celle du jour de la conférence
 
-\subject{COM-506 presentation}
-% C'est utilisé dans les métadonnes du PDF
-
 
 \newif\ifplacelogo % create a new conditional
 \placelogotrue % set it to true
@@ -72,6 +69,7 @@ citestyle=authortitle-tcomp
 
 \colorlet{punct}{red!60!black}
 \definecolor{background}{HTML}{EEEEEE}
+\subject{COM-506 presentation}
 \definecolor{delim}{RGB}{20,105,176}
 \colorlet{numb}{magenta!60!black}
 
@@ -552,17 +550,18 @@ Implementation should check whether the point is valid (on the curve)
     \item The cost of mitigating side channel attacks
     \item Multiple implementation specific vulnerabilities
 \end{itemize}
-\vspace{30pt}
-\begin{exampleblock}{Should you use WPA3 ?}
-Patches are in progress. Even without them WPA3 is a security improvement over WPA2.
-\end{exampleblock}
+You can find the slides / tex online at my GitHub
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.2\textwidth]{frame.png}
+    \label{fig:my_label}
+\end{figure}
+ \begin{exampleblock}{Should I use WPA3?}
+ Yes. Patches are on the way. Even without them, WPA3 offers better security than WPA2.
+ \end{exampleblock}
 \end{frame}
 \begin{frame}[allowframebreaks]
         \frametitle{References}
         \printbibliography
 \end{frame}
-
-
-
-
 \end{document}
