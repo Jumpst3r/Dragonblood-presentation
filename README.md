@@ -11,3 +11,4 @@ The presentation deals with the paper *Dragonblood: A Security Analysis of WPA3â
   publisher = {IEEE}
   }
   ```
+The figures used are mostly taken from the original paper cited above.
