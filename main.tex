@@ -138,6 +138,7 @@ def hash_to_curve(password, mac1, mac2):
             if quad_res(value^3 + a * value + b, p):
                 if not found:
                     x,found = value, True
+                    password = rand()
         y = sqrt(x^3+a*x+b) mod p
         return (x,y)
 \end{pythoncode}
@@ -344,9 +345,20 @@ Weaknesses in the dragonfly handshake:
     \item Number of iterations also depends on mac values!
 \end{itemize}
 \end{frame}
+\begin{frame}{More subtle timing leaks}
+    The line
+    \begin{verbatim}
+        if value >= p: continue
+    \end{verbatim}
+    Also induces a timing leak. Given a MODP group we can compute the probability that the KDF returns an invalid output. \vspace{30pt}
+    \begin{itemize}
+        \item We will come back to this in a few slides. This leak is more pronounced for certain elliptic curves.
+    \end{itemize}
+\end{frame}
+
+
 \begin{frame}{How can we deduce the password?}
     Imagine we have a list of passwords:
-
     \begin{itemize}
         \item \texttt{pass123} \hfill Simulated number of iterations: 4 | Actual iterations: 3
         \item \texttt{password} \hfill Simulated number of iterations: 2 | Actual iterations: 5
@@ -423,6 +435,39 @@ brainpoolP512r1 & 512    & 33.26 \%                   \\ \bottomrule
     \item More iterations done on the real password implies lower execution time variance
     \item Non trivial to exploit
 \end{itemize}    
+\end{column}
+\end{columns}
+\vspace{30pt}
+\textit{\Large{What makes brainpool curves so "bad" ?}}
+\end{frame}
+\begin{frame}{Timing leaks for brainpool curves}
+    The KDF returns a random stream of $n$ bits with $n$ being the number of bits needed to represent $p$.
+    \begin{columns}
+\begin{column}{0.6\textwidth}  %%<--- here
+A simple example:
+\begin{itemize}
+    \item Take $p = 17 (=0b10001)$
+    \item The KDF returns $5$ bits
+    \item What is the probability that $\text{KDF}(\cdot) \geq p$ ?
+    $$ 2^{-5} \left( \sum_{i=0}^3 {3 \choose i}\right) = 0.25$$
+    \item What about $p = 31$ ?
+    \item $31$ is a \textit{Mersenne prime}: 31 = $2^5-1$
+    \item We also need 5 bits to represent 31 ($0b11111$).
+    \item But now $\mathbb{P}[$\text{KDF}(\cdot) \geq p$] \approx 0.031$
+\end{itemize}
+\end{column}
+\begin{column}{0.4\textwidth}
+\begin{itemize}
+    \item Brainpool curves use \textit{random} primes.
+    \item In contrast, NIST curves use quasi Mersenne primes, for example
+    $$p_{192} = 2^{192}  - 2^{64}  - 1$$
+    or
+    $$p_{521} = 2^{521}  - 1 $$
+\end{itemize}
+\begin{exampleblock}{Conclusion}
+This results in very low probabilities for invalid KDF values compared to the case of random brainpool primes.
+\end{exampleblock}
+
 \end{column}
 \end{columns}
 \end{frame}
